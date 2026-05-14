@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import BlurReveal from "@/components/ui/BlurReveal"; // Import your new component
 
 const testimonials = [
   {
@@ -74,9 +75,7 @@ const Testimonials = () => {
           <p className="text-accent font-medium tracking-widest uppercase text-sm mb-2">
             Testimonials
           </p>
-          <h2 className="font-display text-3xl md:text-4xl font-bold">
-            What Our Clients Say
-          </h2>
+          <BlurReveal text="What Our Clients Say" className="font-display text-3xl md:text-4xl font-bold"/>
         </motion.div>
 
         <div className="relative max-w-2xl mx-auto">

@@ -34,7 +34,7 @@ const AppContent = () => {
           <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
         </Routes>
       </AnimatePresence>
-      <Footer />
+      <Footer isDark={isDark} />
     </>
   );
 };
