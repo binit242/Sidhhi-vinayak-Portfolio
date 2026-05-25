@@ -1,0 +1,22 @@
+# Root gitignore
+node_modules/
+**/node_modules/
+.dist/
+dist/
+**/dist/
+**/target/
+**/uploads/
+kolkata-backend/target/
+kolkata-backend/uploads/
+kolkata-backend/.mvn/wrapper/maven-wrapper.jar
+kolkata-frontend/node_modules/
+kolkata-frontend/dist/
+.env
+.env.*
+**/.env
+**/.env.*
+!.env.example
+!**/.env.example
+.DS_Store
+*.class
+*.log
