@@ -1,0 +1,82 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:8.0-alpine
+    container_name: railway_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: MzudaBfOQRsiASLdjVfAXaLOVP1GVbnI
+      MYSQL_DATABASE: railway
+      MYSQL_USER: kolkata
+      MYSQL_PASSWORD: kolkata@123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./Kolkata-database/database.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - kolkata-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./kolkata-backend
+      dockerfile: Dockerfile
+    container_name: kolkata_backend_prod
+    ports:
+      - "8080:8080"
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: railway
+      MYSQL_USER: root
+      MYSQL_PASSWORD: MzudaBfOQRsiASLdjVfAXaLOVP1GVbnI
+      JWT_SECRET: your-strong-jwt-secret-change-in-production
+      CORS_ORIGINS: http://localhost:3000,http://frontend:3000
+      APP_URL: http://localhost:8080/api
+      SPRING_PROFILES_ACTIVE: prod
+      PORT: 8080
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - kolkata-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  frontend:
+    build:
+      context: ./kolkata-frontend
+      dockerfile: Dockerfile
+    container_name: kolkata_frontend_prod
+    ports:
+      - "3000:3000"
+    environment:
+      VITE_API_URL: http://backend:8080/api
+      NODE_ENV: production
+    depends_on:
+      - backend
+    networks:
+      - kolkata-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  kolkata-network:
+    driver: bridge

@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: kolkata-backend
+    env: docker
+    region: oregon
+    plan: starter
+    healthCheckPath: /api/health
+    
+    envVars:
+      - key: MYSQL_HOST
+        value: mysql.railway.internal
+      - key: MYSQL_PORT
+        value: "3306"
+      - key: MYSQL_DATABASE
+        value: railway
+      - key: MYSQL_USER
+        fromDatabase:
+          name: railway
+          property: MYSQL_USER
+      - key: MYSQL_PASSWORD
+        fromDatabase:
+          name: railway
+          property: MYSQL_PASSWORD
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGINS
+        value: https://kolkata-frontend.onrender.com
+      - key: APP_URL
+        value: https://kolkata-backend.onrender.com/api
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod

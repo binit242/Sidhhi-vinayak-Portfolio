@@ -20,3 +20,36 @@ kolkata-frontend/dist/
 .DS_Store
 *.class
 *.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.iml
+
+# OS
+Thumbs.db
+.project
+.classpath
+.c9/
+
+# Build artifacts
+build/
+.gradle/
+*.jar
+*.war
+*.ear
+
+# Temporary
+tmp/
+temp/
+*.tmp
+*.bak
+
+# Maven
+.mvn/wrapper/maven-wrapper.properties
+
+# IntelliJ
+*.iws

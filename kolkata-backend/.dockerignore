@@ -1,0 +1,10 @@
+target/
+.git
+.gitignore
+.idea/
+*.md
+*.log
+node_modules/
+.env
+.env.local
+uploads/

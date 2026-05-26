@@ -62,14 +62,22 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
+                // Health check endpoints (public)
+                .requestMatchers("/health", "/api/health").permitAll()
+                // Auth endpoints (public)
                 .requestMatchers("/auth/**").permitAll()
+                // Public read endpoints
                 .requestMatchers(HttpMethod.GET, "/projects/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/stats/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/testimonials/**").permitAll()
+                // Public forms
                 .requestMatchers(HttpMethod.POST, "/contact").permitAll()
                 .requestMatchers(HttpMethod.POST, "/appointments").permitAll()
+                // Static files
                 .requestMatchers("/uploads/**").permitAll()
-                .requestMatchers("/admin/**").permitAll()
+                // Admin endpoints (require authentication)
+                .requestMatchers("/admin/**").authenticated()
+                // All other requests require authentication
                 .anyRequest().authenticated()
             )
             .authenticationProvider(authProvider())
