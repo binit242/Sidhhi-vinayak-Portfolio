@@ -1,4 +1,17 @@
 {
+  "name": "kolkata-flats-portfolio",
+  "version": "1.0.0",
+  "description": "Frontend for Kolkata Flats Portfolio",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "start": "vite preview"
+  },
+  "keywords": ["vite", "react", "portfolio", "kolkata", "frontend"],
+  "author": "",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^25.9.1"
   },
