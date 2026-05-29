@@ -14,9 +14,9 @@ This guide covers deploying the full-stack application to:
 Your Railway MySQL database is already configured:
 - **Database**: railway
 - **User**: root
-- **Password**: MzudaBfOQRsiASLdjVfAXaLOVP1GVbnI
+- **Password**: YOUR_RAILWAY_MYSQL_PASSWORD
 - **Host (Internal)**: mysql.railway.internal:3306
-- **Host (Public)**: railway.proxy.rlwy.net:53307
+- **Host (Public)**: YOUR_RAILWAY_PUBLIC_HOST:YOUR_RAILWAY_PUBLIC_PORT
 
 ### 2. Environment Variables
 
@@ -33,7 +33,7 @@ MYSQL_HOST=mysql.railway.internal
 MYSQL_PORT=3306
 MYSQL_DATABASE=railway
 MYSQL_USER=root
-MYSQL_PASSWORD=MzudaBfOQRsiASLdjVfAXaLOVP1GVbnI
+MYSQL_PASSWORD=YOUR_RAILWAY_MYSQL_PASSWORD
 JWT_SECRET=[Generate a strong secret: openssl rand -base64 64]
 CORS_ORIGINS=https://kolkata-frontend.onrender.com
 APP_URL=https://kolkata-backend.onrender.com/api
@@ -47,16 +47,16 @@ SPRING_PROFILES_ACTIVE=prod
 ### 1.1 Initialize Database Schema
 1. Connect to Railway MySQL using public URL:
    ```
-   Host: railway.proxy.rlwy.net
-   Port: 53307
+   Host: YOUR_RAILWAY_PUBLIC_HOST
+   Port: YOUR_RAILWAY_PUBLIC_PORT
    User: root
-   Password: MzudaBfOQRsiASLdjVfAXaLOVP1GVbnI
+   Password: YOUR_RAILWAY_MYSQL_PASSWORD
    Database: railway
    ```
 
 2. Import your database schema:
    ```bash
-   mysql -h railway.proxy.rlwy.net -P 53307 -u root -p'MzudaBfOQRsiASLdjVfAXaLOVP1GVbnI' railway < Kolkata-database/database.sql
+   mysql -h YOUR_RAILWAY_PUBLIC_HOST -P YOUR_RAILWAY_PUBLIC_PORT -u root -p'YOUR_RAILWAY_MYSQL_PASSWORD' railway < Kolkata-database/database.sql
    ```
 
 ### 1.2 Verify Connection
@@ -86,7 +86,7 @@ MYSQL_HOST=mysql.railway.internal
 MYSQL_PORT=3306
 MYSQL_DATABASE=railway
 MYSQL_USER=root
-MYSQL_PASSWORD=MzudaBfOQRsiASLdjVfAXaLOVP1GVbnI
+MYSQL_PASSWORD=YOUR_RAILWAY_MYSQL_PASSWORD
 JWT_SECRET=[Generate strong secret]
 CORS_ORIGINS=https://kolkata-frontend.onrender.com
 APP_URL=https://kolkata-backend.onrender.com/api

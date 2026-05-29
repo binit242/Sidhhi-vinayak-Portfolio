@@ -95,10 +95,10 @@
    └─ Works on Command Prompt
 
 Connection Details (Already Set Up):
-├─ Host (Public): railway.proxy.rlwy.net:53307
+├─ Host (Public): YOUR_RAILWAY_PUBLIC_HOST:YOUR_RAILWAY_PUBLIC_PORT
 ├─ Host (Internal): mysql.railway.internal:3306
 ├─ User: root
-├─ Password: MzudaBfOQRsiASLdjVfAXaLOVP1GVbnI
+├─ Password: YOUR_RAILWAY_MYSQL_PASSWORD
 └─ Database: railway
 ```
 
@@ -231,7 +231,7 @@ chmod +x setup-railway-db.sh
 
 **Manual:**
 ```bash
-mysql -h railway.proxy.rlwy.net -P 53307 -u root -p'MzudaBfOQRsiASLdjVfAXaLOVP1GVbnI' railway < Kolkata-database/database.sql
+mysql -h YOUR_RAILWAY_PUBLIC_HOST -P YOUR_RAILWAY_PUBLIC_PORT -u root -p'YOUR_RAILWAY_MYSQL_PASSWORD' railway < Kolkata-database/database.sql
 ```
 
 ✅ **Expected Result**: "Database setup completed successfully!"
@@ -264,7 +264,7 @@ Save this value - you'll need it for Render.
    MYSQL_PORT=3306
    MYSQL_DATABASE=railway
    MYSQL_USER=root
-   MYSQL_PASSWORD=MzudaBfOQRsiASLdjVfAXaLOVP1GVbnI
+   MYSQL_PASSWORD=YOUR_RAILWAY_MYSQL_PASSWORD
    JWT_SECRET=[PASTE YOUR GENERATED SECRET]
    CORS_ORIGINS=https://kolkata-frontend.onrender.com
    APP_URL=https://kolkata-backend.onrender.com/api
@@ -343,7 +343,7 @@ Save this value - you'll need it for Render.
 Frontend:  https://kolkata-frontend.onrender.com
 Backend:   https://kolkata-backend.onrender.com/api
 Health:    https://kolkata-backend.onrender.com/api/health
-Database:  railway.proxy.rlwy.net:53307 (Railway dashboard)
+Database:  YOUR_RAILWAY_PUBLIC_HOST:YOUR_RAILWAY_PUBLIC_PORT (Railway dashboard)
 ```
 
 ---

@@ -1,31 +1,36 @@
 services:
   - type: web
     name: kolkata-backend
-    env: docker
-    region: oregon
+    runtime: docker
+    region: singapore
     plan: starter
+    rootDir: .
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
     healthCheckPath: /api/health
-    
+    autoDeployTrigger: commit
+    disk:
+      name: uploads
+      mountPath: /opt/render/project/uploads
+      sizeGB: 1
     envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
       - key: MYSQL_HOST
-        value: mysql.railway.internal
+        value: zephyr.proxy.rlwy.net
       - key: MYSQL_PORT
-        value: "3306"
+        value: "31887"
       - key: MYSQL_DATABASE
         value: railway
       - key: MYSQL_USER
-        fromDatabase:
-          name: railway
-          property: MYSQL_USER
+        value: root
       - key: MYSQL_PASSWORD
-        fromDatabase:
-          name: railway
-          property: MYSQL_PASSWORD
+        sync: false
       - key: JWT_SECRET
         generateValue: true
       - key: CORS_ORIGINS
         value: https://kolkata-frontend.onrender.com
       - key: APP_URL
         value: https://kolkata-backend.onrender.com/api
-      - key: SPRING_PROFILES_ACTIVE
-        value: prod
+      - key: UPLOAD_DIR
+        value: /opt/render/project/uploads

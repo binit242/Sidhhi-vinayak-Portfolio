@@ -1,4 +1,5 @@
 import { useRef, useCallback, useEffect } from 'react';
+import type React from 'react';
 import './BorderGlow.css';
 
 function parseHSL(hslStr) {
@@ -36,7 +37,7 @@ function buildGradientVars(colors) {
 function easeOutCubic(x) { return 1 - Math.pow(1 - x, 3); }
 function easeInCubic(x) { return x * x * x; }
 
-function animateValue({ start = 0, end = 100, duration = 1000, delay = 0, ease = easeOutCubic, onUpdate, onEnd }) {
+function animateValue({ start = 0, end = 100, duration = 1000, delay = 0, ease = easeOutCubic, onUpdate, onEnd = () => {} }) {
   const t0 = performance.now() + delay;
   function tick() {
     const elapsed = performance.now() - t0;
@@ -143,7 +144,7 @@ const BorderGlow = ({
         '--fill-opacity': fillOpacity,
         ...glowVars,
         ...buildGradientVars(colors),
-      }}
+      } as React.CSSProperties}
     >
       <span className="edge-light" />
       <div className="border-glow-inner">

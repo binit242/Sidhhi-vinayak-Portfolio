@@ -143,11 +143,11 @@ Everything is now configured and ready for production deployment on Render + Rai
 
 ### Current Setup
 ```
-Host: railway.proxy.rlwy.net (public)
+Host: YOUR_RAILWAY_PUBLIC_HOST (public)
 Internal Host: mysql.railway.internal (for Render)
-Port: 53307 (public) / 3306 (internal)
+Port: YOUR_RAILWAY_PUBLIC_PORT (public) / 3306 (internal)
 User: root
-Password: MzudaBfOQRsiASLdjVfAXaLOVP1GVbnI
+Password: YOUR_RAILWAY_MYSQL_PASSWORD
 Database: railway
 ```
 
@@ -167,7 +167,7 @@ setup-railway-db.bat
 ./setup-railway-db.sh
 
 # Manual
-mysql -h railway.proxy.rlwy.net -P 53307 -u root -p'MzudaBfOQRsiASLdjVfAXaLOVP1GVbnI' railway < Kolkata-database/database.sql
+mysql -h YOUR_RAILWAY_PUBLIC_HOST -P YOUR_RAILWAY_PUBLIC_PORT -u root -p'YOUR_RAILWAY_MYSQL_PASSWORD' railway < Kolkata-database/database.sql
 ```
 
 ---
@@ -231,7 +231,7 @@ MYSQL_HOST                = mysql.railway.internal
 MYSQL_PORT                = 3306
 MYSQL_DATABASE            = railway
 MYSQL_USER                = root
-MYSQL_PASSWORD            = MzudaBfOQRsiASLdjVfAXaLOVP1GVbnI
+MYSQL_PASSWORD            = YOUR_RAILWAY_MYSQL_PASSWORD
 JWT_SECRET                = [GENERATE: openssl rand -base64 64]
 CORS_ORIGINS              = https://kolkata-frontend.onrender.com
 APP_URL                   = https://kolkata-backend.onrender.com/api

@@ -1,8 +1,13 @@
 package com.kolkata.realestate.service;
 
-import com.kolkata.realestate.dto.*;
-import com.kolkata.realestate.entity.*;
-import com.kolkata.realestate.repository.*;
+import com.kolkata.realestate.dto.AppointmentDto;
+import com.kolkata.realestate.dto.ContactRequest;
+import com.kolkata.realestate.dto.EnquiryDto;
+import com.kolkata.realestate.dto.PageResponse;
+import com.kolkata.realestate.entity.ContactEnquiry;
+import com.kolkata.realestate.repository.AppointmentRequestRepository;
+import com.kolkata.realestate.repository.ContactEnquiryRepository;
+import com.kolkata.realestate.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -53,8 +58,8 @@ public class EnquiryService {
     public void deleteEnquiry(Long id) { enquiryRepo.deleteById(id); }
 
     // ── Appointments ─────────────────────────────────────────────────────
-    public AppointmentDto submitAppointment(AppointmentRequest req, String ip) {
-        AppointmentRequest a = AppointmentRequest.builder()
+    public AppointmentDto submitAppointment(com.kolkata.realestate.dto.AppointmentRequest req, String ip) {
+        com.kolkata.realestate.entity.AppointmentRequest a = com.kolkata.realestate.entity.AppointmentRequest.builder()
                 .fullName(req.getFullName()).email(req.getEmail())
                 .phone(req.getPhone())
                 .preferredDate(req.getPreferredDate() != null && !req.getPreferredDate().isBlank()
@@ -63,7 +68,7 @@ public class EnquiryService {
                 .visitType(safeVisitType(req.getVisitType()))
                 .message(req.getMessage())
                 .ipAddress(ip)
-                .status(AppointmentRequest.Status.PENDING)
+                .status(com.kolkata.realestate.entity.AppointmentRequest.Status.PENDING)
                 .build();
         if (req.getProjectId() != null)
             a.setProject(projectRepo.findById(req.getProjectId()).orElse(null));
@@ -73,18 +78,18 @@ public class EnquiryService {
     @Transactional(readOnly = true)
     public PageResponse<AppointmentDto> getAppointments(int page, int size, String status) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<AppointmentRequest> result = (status != null && !status.isBlank())
-                ? appointmentRepo.findByStatusOrderByCreatedAtDesc(
-                    AppointmentRequest.Status.valueOf(status), pageable)
-                : appointmentRepo.findAllByOrderByCreatedAtDesc(pageable);
+        Page<com.kolkata.realestate.entity.AppointmentRequest> result = (status != null && !status.isBlank())
+            ? appointmentRepo.findByStatusOrderByCreatedAtDesc(
+                com.kolkata.realestate.entity.AppointmentRequest.Status.valueOf(status), pageable)
+            : appointmentRepo.findAllByOrderByCreatedAtDesc(pageable);
         return toPage(result.map(this::toAppointmentDto));
     }
 
     public AppointmentDto updateAppointmentStatus(Long id, String status, String notes) {
-        AppointmentRequest a = appointmentRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+    com.kolkata.realestate.entity.AppointmentRequest a = appointmentRepo.findById(id)
+            .orElseThrow(() -> new RuntimeException("Appointment not found"));
         if (status != null && !status.isBlank())
-            a.setStatus(AppointmentRequest.Status.valueOf(status));
+            a.setStatus(com.kolkata.realestate.entity.AppointmentRequest.Status.valueOf(status));
         if (notes != null) a.setAdminNotes(notes);
         return toAppointmentDto(appointmentRepo.save(a));
     }
@@ -99,7 +104,7 @@ public class EnquiryService {
 
     @Transactional(readOnly = true)
     public long countPendingAppointments() {
-        return appointmentRepo.countByStatus(AppointmentRequest.Status.PENDING);
+        return appointmentRepo.countByStatus(com.kolkata.realestate.entity.AppointmentRequest.Status.PENDING);
     }
 
     // ── Mappers ──────────────────────────────────────────────────────────
@@ -118,7 +123,7 @@ public class EnquiryService {
         return d;
     }
 
-    private AppointmentDto toAppointmentDto(AppointmentRequest a) {
+    private AppointmentDto toAppointmentDto(com.kolkata.realestate.entity.AppointmentRequest a) {
         AppointmentDto d = new AppointmentDto();
         d.setId(a.getId()); d.setFullName(a.getFullName()); d.setEmail(a.getEmail());
         d.setPhone(a.getPhone());
@@ -136,9 +141,9 @@ public class EnquiryService {
         return d;
     }
 
-    private AppointmentRequest.VisitType safeVisitType(String s) {
-        try { return AppointmentRequest.VisitType.valueOf(s); }
-        catch (Exception e) { return AppointmentRequest.VisitType.SITE_VISIT; }
+    private com.kolkata.realestate.entity.AppointmentRequest.VisitType safeVisitType(String s) {
+        try { return com.kolkata.realestate.entity.AppointmentRequest.VisitType.valueOf(s); }
+        catch (Exception e) { return com.kolkata.realestate.entity.AppointmentRequest.VisitType.SITE_VISIT; }
     }
 
     private <T> PageResponse<T> toPage(Page<T> page) {

@@ -133,15 +133,15 @@ setup-railway-db.bat .................. Database initialization (Windows)
 
 ### Connection Details
 ```
-Public URL:     mysql://root:MzudaBfOQRsiASLdjVfAXaLOVP1GVbnI@railway.proxy.rlwy.net:53307/railway
-Internal URL:   mysql://root:MzudaBfOQRsiASLdjVfAXaLOVP1GVbnI@mysql.railway.internal:3306/railway
+Public URL:     mysql://root:YOUR_RAILWAY_MYSQL_PASSWORD@YOUR_RAILWAY_PUBLIC_HOST:YOUR_RAILWAY_PUBLIC_PORT/railway
+Internal URL:   mysql://root:YOUR_RAILWAY_MYSQL_PASSWORD@mysql.railway.internal:3306/railway
 
-Host (Public):  railway.proxy.rlwy.net
+Host (Public):  YOUR_RAILWAY_PUBLIC_HOST
 Host (Internal): mysql.railway.internal
-Port (Public):  53307
+Port (Public):  YOUR_RAILWAY_PUBLIC_PORT
 Port (Internal): 3306
 User:           root
-Password:       MzudaBfOQRsiASLdjVfAXaLOVP1GVbnI
+Password:       YOUR_RAILWAY_MYSQL_PASSWORD
 Database:       railway
 ```
 
@@ -338,7 +338,7 @@ Everything is configured and ready. You're just a few steps away from having you
 
 ```bash
 # Test database connection
-mysql -h railway.proxy.rlwy.net -P 53307 -u root -p'MzudaBfOQRsiASLdjVfAXaLOVP1GVbnI' -e "SELECT 1;"
+mysql -h YOUR_RAILWAY_PUBLIC_HOST -P YOUR_RAILWAY_PUBLIC_PORT -u root -p'YOUR_RAILWAY_MYSQL_PASSWORD' -e "SELECT 1;"
 
 # Initialize database
 ./setup-railway-db.sh  # Mac/Linux
@@ -356,7 +356,7 @@ openssl rand -base64 64
 Frontend:  https://kolkata-frontend.onrender.com
 Backend:   https://kolkata-backend.onrender.com/api
 Health:    https://kolkata-backend.onrender.com/api/health
-Database:  railway.proxy.rlwy.net:53307
+Database:  YOUR_RAILWAY_PUBLIC_HOST:YOUR_RAILWAY_PUBLIC_PORT
 ```
 
 ### Default Credentials (Change After First Login!)

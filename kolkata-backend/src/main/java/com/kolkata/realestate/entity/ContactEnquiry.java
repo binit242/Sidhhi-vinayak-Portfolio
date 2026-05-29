@@ -35,6 +35,7 @@ public class ContactEnquiry {
     private String sourcePage;
 
     @Enumerated(EnumType.STRING)
+    @Builder.Default
     private Status status = Status.NEW;
 
     @Column(name = "admin_notes", columnDefinition = "TEXT")

@@ -24,6 +24,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Configuration
 @EnableWebSecurity
@@ -62,22 +63,15 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                // Health check endpoints (public)
-                .requestMatchers("/health", "/api/health").permitAll()
-                // Auth endpoints (public)
+                .requestMatchers("/health").permitAll()
                 .requestMatchers("/auth/**").permitAll()
-                // Public read endpoints
                 .requestMatchers(HttpMethod.GET, "/projects/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/stats/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/testimonials/**").permitAll()
-                // Public forms
                 .requestMatchers(HttpMethod.POST, "/contact").permitAll()
                 .requestMatchers(HttpMethod.POST, "/appointments").permitAll()
-                // Static files
                 .requestMatchers("/uploads/**").permitAll()
-                // Admin endpoints (require authentication)
                 .requestMatchers("/admin/**").authenticated()
-                // All other requests require authentication
                 .anyRequest().authenticated()
             )
             .authenticationProvider(authProvider())
@@ -88,7 +82,10 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsSource() {
         CorsConfiguration cfg = new CorsConfiguration();
-        cfg.setAllowedOrigins(Arrays.asList(allowedOrigins.split(",")));
+        cfg.setAllowedOrigins(Arrays.stream(allowedOrigins.split(","))
+                .map(String::trim)
+                .filter(origin -> !origin.isBlank())
+                .collect(Collectors.toList()));
         cfg.setAllowedMethods(List.of("GET","POST","PUT","PATCH","DELETE","OPTIONS"));
         cfg.setAllowedHeaders(List.of("*"));
         cfg.setAllowCredentials(true);

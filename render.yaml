@@ -1,12 +1,25 @@
 services:
   - type: web
     name: kolkata-backend
-    env: docker
+    runtime: docker
+    region: singapore
+    plan: starter
+    rootDir: kolkata-backend
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    disk:
+      name: uploads
+      mountPath: /opt/render/project/uploads
+      sizeGB: 1
     envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
       - key: MYSQL_HOST
-        value: mysql.railway.internal
+        value: zephyr.proxy.rlwy.net
       - key: MYSQL_PORT
-        value: "3306"
+        value: "31887"
       - key: MYSQL_DATABASE
         value: railway
       - key: MYSQL_USER
@@ -19,18 +32,20 @@ services:
         value: https://kolkata-frontend.onrender.com
       - key: APP_URL
         value: https://kolkata-backend.onrender.com/api
-      - key: SPRING_PROFILES_ACTIVE
-        value: prod
-    region: oregon
-    plan: starter
-    dockerfile: kolkata-backend/Dockerfile
+      - key: UPLOAD_DIR
+        value: /opt/render/project/uploads
 
   - type: web
     name: kolkata-frontend
-    env: docker
+    runtime: static
+    rootDir: kolkata-frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    autoDeployTrigger: commit
     envVars:
       - key: VITE_API_URL
         value: https://kolkata-backend.onrender.com/api
-    region: oregon
-    plan: starter
-    dockerfile: kolkata-frontend/Dockerfile
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

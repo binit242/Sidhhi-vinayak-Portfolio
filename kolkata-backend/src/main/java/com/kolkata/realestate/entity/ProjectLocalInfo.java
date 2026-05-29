@@ -16,6 +16,7 @@ public class ProjectLocalInfo {
     private Project project;
 
     @Enumerated(EnumType.STRING)
+    @Builder.Default
     private Category category = Category.OTHER;
 
     @Column(nullable = false)
@@ -28,6 +29,7 @@ public class ProjectLocalInfo {
     private String description;
 
     @Column(name = "display_order")
+    @Builder.Default
     private int displayOrder = 0;
 
     public enum Category {

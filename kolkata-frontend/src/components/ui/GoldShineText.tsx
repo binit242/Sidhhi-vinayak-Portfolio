@@ -28,7 +28,7 @@ const GoldShineText: React.FC<GoldShineTextProps> = ({ children, className }) =>
     controls.start({
       WebkitMaskPosition: ["-100% 0", "200% 0"],
       transition: { duration: 1.2, ease: "easeInOut" }
-    });
+    } as any);
   }, [controls]);
 
   // Animate on hover
@@ -36,10 +36,10 @@ const GoldShineText: React.FC<GoldShineTextProps> = ({ children, className }) =>
     controls.start({
       WebkitMaskPosition: ["-100% 0", "200% 0"],
       transition: { duration: 1.2, ease: "easeInOut" }
-    });
+    } as any);
   };
   const handleMouseLeave = () => {
-    controls.start({ WebkitMaskPosition: "-100% 0" });
+    controls.start({ WebkitMaskPosition: "-100% 0" } as any);
   };
 
   return (
@@ -48,8 +48,8 @@ const GoldShineText: React.FC<GoldShineTextProps> = ({ children, className }) =>
       className={className}
       style={shineStyle}
       animate={controls}
-      initial={{ WebkitMaskPosition: "-100% 0" }}
-      whileHover={{ WebkitMaskPosition: "200% 0" }}
+      initial={{ WebkitMaskPosition: "-100% 0" } as any}
+      whileHover={{ WebkitMaskPosition: "200% 0" } as any}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >

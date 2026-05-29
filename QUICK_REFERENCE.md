@@ -4,10 +4,10 @@
 
 ### Database Credentials (Railway) 🗄️
 ```
-Host (Public):    railway.proxy.rlwy.net:53307
+Host (Public):    YOUR_RAILWAY_PUBLIC_HOST:YOUR_RAILWAY_PUBLIC_PORT
 Host (Internal):  mysql.railway.internal:3306
 User:             root
-Password:         MzudaBfOQRsiASLdjVfAXaLOVP1GVbnI
+Password:         YOUR_RAILWAY_MYSQL_PASSWORD
 Database:         railway
 ```
 
@@ -40,7 +40,7 @@ MYSQL_HOST=mysql.railway.internal
 MYSQL_PORT=3306
 MYSQL_DATABASE=railway
 MYSQL_USER=root
-MYSQL_PASSWORD=MzudaBfOQRsiASLdjVfAXaLOVP1GVbnI
+MYSQL_PASSWORD=YOUR_RAILWAY_MYSQL_PASSWORD
 JWT_SECRET=[YOUR_GENERATED_SECRET]
 CORS_ORIGINS=https://kolkata-frontend.onrender.com
 APP_URL=https://kolkata-backend.onrender.com/api

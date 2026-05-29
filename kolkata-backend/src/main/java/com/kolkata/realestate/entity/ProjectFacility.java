@@ -28,5 +28,6 @@ public class ProjectFacility {
     private String description;
 
     @Column(name = "display_order")
+    @Builder.Default
     private int displayOrder = 0;
 }

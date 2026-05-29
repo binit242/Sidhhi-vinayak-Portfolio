@@ -11,18 +11,13 @@ FROM eclipse-temurin:17-jre-alpine
 
 WORKDIR /app
 
-# Copy JAR from build stage
 COPY --from=builder /build/target/*.jar app.jar
 
-# Create upload directory
-RUN mkdir -p /tmp/uploads
+RUN mkdir -p /opt/render/project/uploads /tmp/uploads
 
-# Expose port
 EXPOSE 8080
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD wget --quiet --tries=1 --spider http://localhost:8080/api/health || exit 1
+HEALTHCHECK --interval=30s --timeout=3s --start-period=30s --retries=3 \
+  CMD wget --quiet --tries=1 --spider http://localhost:${PORT:-8080}/api/health || exit 1
 
-# Run application
 CMD ["java", "-XX:+UseContainerSupport", "-XX:MaxRAMPercentage=75.0", "-Dspring.profiles.active=prod", "-jar", "app.jar"]

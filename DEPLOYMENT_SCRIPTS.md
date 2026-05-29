@@ -11,10 +11,10 @@
 
 ```bash
 # Connect to Railway MySQL and initialize schema
-mysql -h railway.proxy.rlwy.net -P 53307 -u root -p'MzudaBfOQRsiASLdjVfAXaLOVP1GVbnI' railway < Kolkata-database/database.sql
+mysql -h YOUR_RAILWAY_PUBLIC_HOST -P YOUR_RAILWAY_PUBLIC_PORT -u root -p'YOUR_RAILWAY_MYSQL_PASSWORD' railway < Kolkata-database/database.sql
 
 # Verify connection
-mysql -h railway.proxy.rlwy.net -P 53307 -u root -p'MzudaBfOQRsiASLdjVfAXaLOVP1GVbnI' railway -e "SELECT VERSION();"
+mysql -h YOUR_RAILWAY_PUBLIC_HOST -P YOUR_RAILWAY_PUBLIC_PORT -u root -p'YOUR_RAILWAY_MYSQL_PASSWORD' railway -e "SELECT VERSION();"
 ```
 
 ### Step 2: Deploy Backend to Render
@@ -36,7 +36,7 @@ MYSQL_HOST=mysql.railway.internal
 MYSQL_PORT=3306
 MYSQL_DATABASE=railway
 MYSQL_USER=root
-MYSQL_PASSWORD=MzudaBfOQRsiASLdjVfAXaLOVP1GVbnI
+MYSQL_PASSWORD=YOUR_RAILWAY_MYSQL_PASSWORD
 JWT_SECRET=[Generate: openssl rand -base64 64]
 CORS_ORIGINS=https://kolkata-frontend.onrender.com
 APP_URL=https://kolkata-backend.onrender.com/api
@@ -155,12 +155,12 @@ curl -X POST http://localhost:8080/api/auth/login \
 ```bash
 # From Render, via Railway dashboard
 # Or manually:
-mysqldump -h railway.proxy.rlwy.net -P 53307 -u root -p'MzudaBfOQRsiASLdjVfAXaLOVP1GVbnI' railway > backup.sql
+mysqldump -h YOUR_RAILWAY_PUBLIC_HOST -P YOUR_RAILWAY_PUBLIC_PORT -u root -p'YOUR_RAILWAY_MYSQL_PASSWORD' railway > backup.sql
 ```
 
 ### Restore Database
 ```bash
-mysql -h railway.proxy.rlwy.net -P 53307 -u root -p'MzudaBfOQRsiASLdjVfAXaLOVP1GVbnI' railway < backup.sql
+mysql -h YOUR_RAILWAY_PUBLIC_HOST -P YOUR_RAILWAY_PUBLIC_PORT -u root -p'YOUR_RAILWAY_MYSQL_PASSWORD' railway < backup.sql
 ```
 
 ---

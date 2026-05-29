@@ -24,8 +24,17 @@ declare module "@/components/BorderGlow" {
   interface BorderGlowProps {
     children: ReactNode;
     animated?: boolean;
+    backgroundColor?: string;
     borderRadius?: number;
     className?: string;
+    colors?: string[];
+    coneSpread?: number;
+    edgeSensitivity?: number;
+    fillOpacity?: number;
+    glowColor?: string;
+    glowIntensity?: number;
+    glowRadius?: number;
+    lightModeGlowColor?: "green" | "golden" | "pink";
   }
   const BorderGlow: FC<BorderGlowProps>;
   export default BorderGlow;

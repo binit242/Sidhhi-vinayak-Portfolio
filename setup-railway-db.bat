@@ -18,10 +18,10 @@ echo ================================================
 echo.
 
 REM Railway Database Configuration
-set RAILWAY_HOST=railway.proxy.rlwy.net
-set RAILWAY_PORT=53307
+set RAILWAY_HOST=YOUR_RAILWAY_PUBLIC_HOST
+set RAILWAY_PORT=YOUR_RAILWAY_PUBLIC_PORT
 set RAILWAY_USER=root
-set RAILWAY_PASSWORD=MzudaBfOQRsiASLdjVfAXaLOVP1GVbnI
+set RAILWAY_PASSWORD=YOUR_RAILWAY_MYSQL_PASSWORD
 set RAILWAY_DB=railway
 
 echo Railway Database Configuration:

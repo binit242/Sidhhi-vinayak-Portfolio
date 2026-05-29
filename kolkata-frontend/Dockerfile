@@ -8,8 +8,8 @@ RUN npm ci
 
 COPY . .
 
-# Build with production environment
-ENV VITE_API_URL=https://kolkata-backend.onrender.com/api
+ARG VITE_API_URL=https://kolkata-backend.onrender.com/api
+ENV VITE_API_URL=$VITE_API_URL
 RUN npm run build
 
 # Runtime stage
@@ -17,17 +17,13 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Install serve to serve static files
 RUN npm install -g serve
 
-# Copy built app from builder
 COPY --from=builder /build/dist ./dist
 
 EXPOSE 3000
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD wget --quiet --tries=1 --spider http://localhost:3000 || exit 1
+HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
+  CMD wget --quiet --tries=1 --spider http://localhost:${PORT:-3000} || exit 1
 
-# Serve the app
-CMD ["serve", "-s", "dist", "-l", "3000"]
+CMD ["sh", "-c", "serve -s dist -l ${PORT:-3000}"]

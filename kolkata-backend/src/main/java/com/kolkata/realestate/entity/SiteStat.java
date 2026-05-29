@@ -22,8 +22,10 @@ public class SiteStat {
     private String statValue;
 
     @Column(name = "display_order")
+    @Builder.Default
     private int displayOrder = 0;
 
+    @Builder.Default
     private boolean visible = true;
 
     @Column(name = "updated_at")

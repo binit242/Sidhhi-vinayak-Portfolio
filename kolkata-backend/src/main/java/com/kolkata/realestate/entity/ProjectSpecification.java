@@ -36,5 +36,6 @@ public class ProjectSpecification {
     private String description;
 
     @Column(name = "display_order")
+    @Builder.Default
     private int displayOrder = 0;
 }

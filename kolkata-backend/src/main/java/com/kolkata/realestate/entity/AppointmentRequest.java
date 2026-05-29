@@ -34,12 +34,14 @@ public class AppointmentRequest {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "visit_type")
+    @Builder.Default
     private VisitType visitType = VisitType.SITE_VISIT;
 
     @Column(columnDefinition = "TEXT")
     private String message;
 
     @Enumerated(EnumType.STRING)
+    @Builder.Default
     private Status status = Status.PENDING;
 
     @Column(name = "admin_notes", columnDefinition = "TEXT")

@@ -12,10 +12,10 @@ echo -e "${YELLOW}================================================${NC}"
 echo ""
 
 # Railway Database Configuration
-RAILWAY_HOST="railway.proxy.rlwy.net"
-RAILWAY_PORT="53307"
+RAILWAY_HOST="YOUR_RAILWAY_PUBLIC_HOST"
+RAILWAY_PORT="YOUR_RAILWAY_PUBLIC_PORT"
 RAILWAY_USER="root"
-RAILWAY_PASSWORD="MzudaBfOQRsiASLdjVfAXaLOVP1GVbnI"
+RAILWAY_PASSWORD="YOUR_RAILWAY_MYSQL_PASSWORD"
 RAILWAY_DB="railway"
 
 echo -e "${YELLOW}Railway Database Configuration:${NC}"
@@ -93,4 +93,3 @@ echo "1. Deploy backend to Render with Railway credentials"
 echo "2. Deploy frontend to Render"
 echo "3. Verify both services are running"
 echo "4. Update CORS origins if needed"
-echo ""

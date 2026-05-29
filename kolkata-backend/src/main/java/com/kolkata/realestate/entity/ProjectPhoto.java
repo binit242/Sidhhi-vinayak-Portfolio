@@ -24,9 +24,11 @@ public class ProjectPhoto {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "photo_type")
+    @Builder.Default
     private PhotoType photoType = PhotoType.GALLERY;
 
     @Column(name = "display_order")
+    @Builder.Default
     private int displayOrder = 0;
 
     @Column(name = "created_at", updatable = false)

@@ -21,6 +21,7 @@ public class Testimonial {
     @Column(name = "avatar_url", length = 1000)
     private String avatarUrl;
 
+    @Builder.Default
     private int rating = 5;
 
     @Column(nullable = false, columnDefinition = "TEXT")
@@ -30,10 +31,13 @@ public class Testimonial {
     @JoinColumn(name = "project_id")
     private Project project;
 
+    @Builder.Default
     private boolean featured    = false;
+    @Builder.Default
     private boolean visible     = true;
 
     @Column(name = "display_order")
+    @Builder.Default
     private int displayOrder = 0;
 
     @Column(name = "created_at", updatable = false)

@@ -34,10 +34,12 @@ public class Project {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
     private Status status = Status.ONGOING;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "property_type", nullable = false)
+    @Builder.Default
     private PropertyType propertyType = PropertyType.RESIDENTIAL;
 
     @Column(name = "total_units")    private Integer totalUnits;
@@ -48,6 +50,7 @@ public class Project {
     @Column(name = "price_max", precision = 15, scale = 2)
     private BigDecimal priceMax;
     @Column(name = "price_unit", length = 50)
+    @Builder.Default
     private String priceUnit = "per unit";
 
     @Column(name = "area_min", precision = 10, scale = 2)
@@ -72,10 +75,13 @@ public class Project {
     @Column(name = "map_longitude", precision = 11, scale = 8)
     private BigDecimal mapLongitude;
 
+    @Builder.Default
     private boolean featured    = false;
+    @Builder.Default
     private boolean visible     = true;
 
     @Column(name = "display_order")
+    @Builder.Default
     private int displayOrder = 0;
 
     @Column(name = "created_at", updatable = false)
@@ -87,22 +93,27 @@ public class Project {
     // ---- Relationships ----
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("displayOrder ASC")
+    @Builder.Default
     private List<ProjectPhoto> photos = new ArrayList<>();
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("displayOrder ASC")
+    @Builder.Default
     private List<ProjectAmenity> amenities = new ArrayList<>();
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("displayOrder ASC")
+    @Builder.Default
     private List<ProjectFacility> facilities = new ArrayList<>();
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("displayOrder ASC")
+    @Builder.Default
     private List<ProjectLocalInfo> localInfos = new ArrayList<>();
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("displayOrder ASC")
+    @Builder.Default
     private List<ProjectSpecification> specifications = new ArrayList<>();
 
     @PrePersist  void onCreate() { createdAt = updatedAt = LocalDateTime.now(); }
