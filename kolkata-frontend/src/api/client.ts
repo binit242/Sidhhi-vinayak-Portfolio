@@ -1,6 +1,10 @@
 import axios from "axios";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
+const LEGACY_RENDER_API_URL = "https://kolkata-backend.onrender.com/api";
+const RENDER_API_URL = "https://sidhhi-vinayak-backend.onrender.com/api";
+const configuredApiUrl = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
+const API_BASE_URL =
+  configuredApiUrl === LEGACY_RENDER_API_URL ? RENDER_API_URL : configuredApiUrl;
 const API_ORIGIN = API_BASE_URL.replace(/\/api\/?$/, "");
 
 // ─── Axios instance ───────────────────────────────────────────────────────────
@@ -20,6 +24,9 @@ export default api;
 
 export const getAssetUrl = (url?: string) => {
   if (!url) return "";
+  if (/^https?:\/\/localhost:8080\/api\/uploads\//i.test(url)) {
+    return `${API_BASE_URL}${new URL(url).pathname.replace(/^\/api/, "")}`;
+  }
   if (/^https?:\/\//i.test(url) || url.startsWith("data:")) return url;
   if (url.startsWith("/api/uploads/")) return `${API_ORIGIN}${url}`;
   if (url.startsWith("/uploads/")) return `${API_BASE_URL}${url}`;

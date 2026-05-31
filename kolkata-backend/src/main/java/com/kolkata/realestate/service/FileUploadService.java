@@ -35,12 +35,14 @@ public class FileUploadService {
         Path target = dir.resolve(filename);
         Files.copy(file.getInputStream(), target, StandardCopyOption.REPLACE_EXISTING);
 
-        return baseUrl + "/uploads/" + subdir + "/" + filename;
+        return "/api/uploads/" + subdir + "/" + filename;
     }
 
     public void deleteFile(String url) {
         try {
-            String path = url.replace(baseUrl + "/uploads/", "");
+            String path = url
+                    .replace(baseUrl + "/uploads/", "")
+                    .replace("/api/uploads/", "");
             Files.deleteIfExists(Paths.get(uploadDir, path));
         } catch (IOException e) {
             log.warn("Could not delete file: {}", url);

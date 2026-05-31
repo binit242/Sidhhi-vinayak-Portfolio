@@ -29,9 +29,9 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: CORS_ORIGINS
-        value: https://kolkata-frontend.onrender.com
+        value: https://sidhhi-vinayak-frontend.onrender.com
       - key: APP_URL
-        value: https://kolkata-backend.onrender.com/api
+        value: https://sidhhi-vinayak-backend.onrender.com/api
       - key: UPLOAD_DIR
         value: /opt/render/project/uploads
 
@@ -44,7 +44,7 @@ services:
     autoDeployTrigger: commit
     envVars:
       - key: VITE_API_URL
-        value: https://kolkata-backend.onrender.com/api
+        value: https://sidhhi-vinayak-backend.onrender.com/api
     routes:
       - type: rewrite
         source: /*

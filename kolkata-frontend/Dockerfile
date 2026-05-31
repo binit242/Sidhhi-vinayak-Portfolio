@@ -8,7 +8,7 @@ RUN npm ci
 
 COPY . .
 
-ARG VITE_API_URL=https://kolkata-backend.onrender.com/api
+ARG VITE_API_URL=https://sidhhi-vinayak-backend.onrender.com/api
 ENV VITE_API_URL=$VITE_API_URL
 RUN npm run build
 
