@@ -1,7 +1,7 @@
 // src/pages/admin/AdminProjects.tsx
 import React, { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { projectAdminApi, ProjectSummary } from '../../api/client';
+import { getAssetUrl, projectAdminApi, ProjectSummary } from '../../api/client';
 import {
   Plus, Pencil, Trash2, Eye, EyeOff, Star, StarOff,
   Search, Building2, Filter
@@ -102,7 +102,7 @@ export default function AdminProjects() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center shrink-0 overflow-hidden">
                         {p.heroImageUrl
-                          ? <img src={p.heroImageUrl} alt="" className="w-full h-full object-cover" />
+                          ? <img src={getAssetUrl(p.heroImageUrl)} alt="" className="w-full h-full object-cover" />
                           : <Building2 className="w-5 h-5 text-slate-500" />}
                       </div>
                       <div>

@@ -1,6 +1,6 @@
 // src/pages/admin/AdminTestimonials.tsx
 import React, { useEffect, useState, useCallback } from 'react';
-import { testimonialAdminApi, projectAdminApi, Testimonial, ProjectSummary } from '../../api/client';
+import { getAssetUrl, testimonialAdminApi, projectAdminApi, Testimonial, ProjectSummary } from '../../api/client';
 import { Plus, Trash2, Pencil, Star, X, Check, Upload } from 'lucide-react';
 
 const inputCls  = "w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 transition";
@@ -180,7 +180,7 @@ export default function AdminTestimonials() {
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-full bg-slate-700 overflow-hidden shrink-0 border-2 border-slate-600">
                   {t.avatarUrl
-                    ? <img src={t.avatarUrl} alt="" className="w-full h-full object-cover" />
+                    ? <img src={getAssetUrl(t.avatarUrl)} alt="" className="w-full h-full object-cover" />
                     : <div className="w-full h-full flex items-center justify-center text-slate-300 font-bold text-lg">
                         {t.clientName[0]}
                       </div>}

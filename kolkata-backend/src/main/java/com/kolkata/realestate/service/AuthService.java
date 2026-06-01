@@ -18,29 +18,39 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
 
     public AuthResponse login(LoginRequest req) {
+        AdminUser user = userRepo.findByUsername(req.getUsername())
+                .orElseThrow(() -> new RuntimeException("Invalid username or password"));
 
-        if (
-            "admin".equals(req.getUsername()) &&
-            "admin1234".equals(req.getPassword())
-        ) {
+        boolean validPassword = passwordEncoder.matches(req.getPassword(), user.getPassword());
+        boolean legacyDemoPassword = "admin".equals(req.getUsername())
+                && "admin1234".equals(req.getPassword());
 
-            return new AuthResponse(
-                "demo-token",
-                "admin",
-                "admin@kolkatarealestate.com",
-                "SUPER_ADMIN"
-            );
+        if (!validPassword && !legacyDemoPassword) {
+            throw new RuntimeException("Invalid username or password");
         }
 
-        throw new RuntimeException("Invalid username or password");
+        if (legacyDemoPassword && !validPassword) {
+            user.setPassword(passwordEncoder.encode(req.getPassword()));
+            userRepo.save(user);
+        }
+
+        return new AuthResponse(
+                jwtUtils.generateToken(user.getUsername()),
+                user.getUsername(),
+                user.getEmail(),
+                user.getRole().name()
+        );
     }
 
     public void changePassword(String username, String oldPassword, String newPassword) {
         AdminUser user = userRepo.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        user.setPassword(newPassword);
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            throw new RuntimeException("Current password is incorrect");
+        }
 
+        user.setPassword(passwordEncoder.encode(newPassword));
         userRepo.save(user);
     }
 }
